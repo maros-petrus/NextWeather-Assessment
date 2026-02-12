@@ -1,0 +1,79 @@
+# =========================
+# macOS
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# =========================
+# Xcode
+# =========================
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+
+# Xcode Breakpoints
+*.xcscmblueprint
+xcshareddata/WorkspaceSettings.xcsettings
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# =========================
+# CocoaPods
+# =========================
+Pods/
+*.xcworkspace
+
+# =========================
+# Carthage
+# =========================
+Carthage/Build/
+
+# =========================
+# Fastlane
+# =========================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# =========================
+# Archives
+# =========================
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Local config
+# =========================
+*.local
+.env
+.env.*
+
+# =========================
+# Playground
+# =========================
+timeline.xctimeline
+playground.xcworkspace
