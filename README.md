@@ -33,8 +33,7 @@ The API returns **hourly forecast data**.
 
 ## Business Rules
 
-1. The API returns arrays of hourly values.  
-   You must decide which entry represents the “current” weather.
+1. The app must derive a single “current weather” value from the hourly forecast response (you decide how).
 
 2. If the apparent temperature differs from the actual temperature:
    - ≥ +3°C → “Feels warmer”
