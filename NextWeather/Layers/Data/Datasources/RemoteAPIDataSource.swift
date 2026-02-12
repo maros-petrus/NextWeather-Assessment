@@ -11,7 +11,7 @@ protocol RemoteAPIDataSource {
     func request<T: Decodable>(_ endpoint: Endpoint, as type: T.Type) async throws -> T
 }
 
-class URLSessionRemoteApiDataSource: RemoteAPIDataSource {
+class URLSessionRemoteAPIDataSource: RemoteAPIDataSource {
     private let session = URLSession(configuration: .default)
     private let decoder = JSONDecoder()
     
@@ -26,18 +26,20 @@ class URLSessionRemoteApiDataSource: RemoteAPIDataSource {
             return try decoder.decode(T.self, from: data)
         } catch let error as NetworkError {
             throw error
+        } catch is DecodingError {
+            throw NetworkError.decodingFailed
         } catch {
             throw NetworkError.transportError(error.localizedDescription)
         }
     }
 }
 
-public struct Endpoint {
-    public let baseURL: String
-    public let path: String
-    public let method: HTTPMethod
-    public let queryItems: [URLQueryItem]
-    
+struct Endpoint {
+    let baseURL: String
+    let path: String
+    let method: HTTPMethod
+    let queryItems: [URLQueryItem]
+
     init(baseURL: String, path: String, method: HTTPMethod, queryItems: [URLQueryItem]) {
         self.baseURL = baseURL
         self.path = path
@@ -45,7 +47,7 @@ public struct Endpoint {
         self.queryItems = queryItems
     }
     
-    public func makeRequest() throws -> URLRequest {
+    func makeRequest() throws -> URLRequest {
         guard let url = URL(string: baseURL) else { throw NetworkError.invalidURL }
         var components = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         components?.queryItems = queryItems.isEmpty ? nil : queryItems
@@ -59,18 +61,18 @@ public struct Endpoint {
     }
 }
 
-public enum HTTPMethod: String {
+enum HTTPMethod: String {
     case get = "GET"
 }
 
-public enum NetworkError: Error, LocalizedError {
+enum NetworkError: Error, LocalizedError {
     case invalidURL
     case invalidResponse
     case httpStatus(Int)
     case decodingFailed
     case transportError(String)
     
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .invalidURL: "Invalid URL."
         case .invalidResponse: "Invalid response."

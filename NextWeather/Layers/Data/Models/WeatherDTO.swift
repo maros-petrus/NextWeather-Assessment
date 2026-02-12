@@ -9,9 +9,16 @@ import Foundation
 
 struct WeatherDTO: Codable {
     let hourly: Hourly
+
     struct Hourly: Codable {
         let time: [String]
-        let temperature_2m: [Double]
-        let apparent_temperature: [Double]
+        let temperature2m: [Double]
+        let apparentTemperature: [Double]
+
+        enum CodingKeys: String, CodingKey {
+            case time
+            case temperature2m = "temperature_2m"
+            case apparentTemperature = "apparent_temperature"
+        }
     }
 }

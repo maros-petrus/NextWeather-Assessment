@@ -14,7 +14,7 @@ class WeatherViewModel: ObservableObject {
         case failed(String)
     }
     
-    @Published var state: State = .loaded
+    @Published var state: State = .loading
     
     func load() async {
         // TODO: Load data and manage state

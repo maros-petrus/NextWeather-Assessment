@@ -8,7 +8,7 @@
 import Foundation
 
 struct GeocodingDTO: Decodable {
-    let results: [ResultDTO]
+    let results: [ResultDTO]?
     struct ResultDTO: Decodable {
         let latitude: Double
         let longitude: Double

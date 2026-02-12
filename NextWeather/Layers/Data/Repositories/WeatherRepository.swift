@@ -15,7 +15,7 @@ class WeatherRepository {
         self.datasource = datasource
     }
     
-    func fetchCurrentWeather(city: String) async throws -> WeatherDTO? {
+    func fetchCurrentWeather(city: String) async throws -> WeatherDTO {
         guard let coordinates = try await getCityCoordinates(city: city) else { throw WeatherRepositoryError.cityNotFound(city) }
         
         let endpoint = Endpoint(
@@ -49,7 +49,7 @@ class WeatherRepository {
         )
         
         let geocoding = try await datasource.request(endpoint, as: GeocodingDTO.self)
-        return geocoding.results.first
+        return geocoding.results?.first
     }
     
     enum WeatherRepositoryError: Error {

@@ -8,7 +8,7 @@
 import Foundation
 
 class AppContainer {
-    let remoteDataSource: RemoteAPIDataSource = URLSessionRemoteApiDataSource()
+    let remoteDataSource: RemoteAPIDataSource = URLSessionRemoteAPIDataSource()
     lazy var weatherRepository = WeatherRepository(datasource: remoteDataSource)
     
     // TODO: Add Domain dependencies
